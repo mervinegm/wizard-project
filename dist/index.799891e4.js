@@ -657,7 +657,10 @@ function initWelcome(params) {
     const bodycontainerEl = welcomeEl.querySelector(".bodyContainer");
     const shadowBodycontainerEl = bodycontainerEl.shadowRoot.querySelector(".bodyContainer");
     const formEL = shadowBodycontainerEl.childNodes[2];
-    formEL.addEventListener("submit", function() {
+    const formEl2 = formEL.shadowRoot.children[0];
+    console.log(formEL);
+    console.log(formEL.shadowRoot.children[0]);
+    formEl2.addEventListener("submit", function(e) {
         params.goTo("/form");
     });
     return welcomeEl;
@@ -817,16 +820,17 @@ class Form extends HTMLElement {
         formEl.innerHTML = `
       <label class="label">Nombre</label>
       <input class="input" type="text" name="nombre" />
-      <button class="button">Comenzar</button>
-     
+      <button type="submit" class="button">Comenzar</button>   
     `;
         const form = this.shadow.querySelector(".form");
         form.addEventListener("submit", (e)=>{
             e.preventDefault();
+            console.log(e.target.nombre.value);
             (0, _state.state).setState({
                 ...(0, _state.state).getState(),
                 nombre: e.target.nombre.value
             });
+            e.target.nombre.value = "";
         });
         var style = document.createElement("style");
         this.shadow.appendChild(style);
@@ -1165,8 +1169,7 @@ class Title2 extends HTMLElement {
             mode: "open"
         });
         this.nombre = "";
-        this.render();
-        (0, _state.state).subscribe(()=>{
+        /* this.render(); */ (0, _state.state).subscribe(()=>{
             this.syncWithState();
         });
         this.syncWithState();
@@ -1174,7 +1177,8 @@ class Title2 extends HTMLElement {
     syncWithState() {
         const lastState = (0, _state.state).getState();
         this.nombre = lastState.nombre || "";
-    /* this.render(); */ }
+        this.render();
+    }
     render() {
         var titulo2El = document.createElement("h1");
         titulo2El.classList.add("titulo2");

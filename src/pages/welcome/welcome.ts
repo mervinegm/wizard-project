@@ -39,7 +39,13 @@ export function initWelcome(params) {
 
   const formEL: any = shadowBodycontainerEl.childNodes[2];
 
-  formEL.addEventListener("submit", function () {
+  const formEl2: any = formEL.shadowRoot.children[0];
+
+  console.log(formEL);
+
+  console.log(formEL.shadowRoot.children[0]);
+
+  formEl2.addEventListener("submit", function (e: any) {
     params.goTo("/form");
   });
 

@@ -6,7 +6,7 @@ class Title2 extends HTMLElement {
 
   constructor() {
     super();
-    this.render();
+    /* this.render(); */
     state.subscribe(() => {
       this.syncWithState();
     });
@@ -16,7 +16,7 @@ class Title2 extends HTMLElement {
   syncWithState() {
     const lastState = state.getState();
     this.nombre = lastState.nombre || "";
-    /* this.render(); */
+    this.render();
   }
 
   render() {

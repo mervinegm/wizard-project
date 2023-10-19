@@ -24,18 +24,19 @@ class Form extends HTMLElement {
     formEl.innerHTML = `
       <label class="label">Nombre</label>
       <input class="input" type="text" name="nombre" />
-      <button class="button">Comenzar</button>
-     
+      <button type="submit" class="button">Comenzar</button>   
     `;
 
     const form = this.shadow.querySelector(".form")!;
 
     form.addEventListener("submit", (e: any) => {
       e.preventDefault();
+      console.log(e.target.nombre.value);
       state.setState({
         ...state.getState(),
         nombre: e.target.nombre.value,
       });
+      e.target.nombre.value = "";
     });
 
     var style = document.createElement("style");
